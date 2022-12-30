@@ -1,6 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useContext } from "react";
 import styled from "styled-components";
+import { AuthContext } from "../context/AuthContext";
 
 const StyledProduct = styled.div`
   min-width: 250px;
@@ -77,6 +80,21 @@ export default function ProductIcon({
   productName,
   productPrice,
 }: ProductIconProps) {
+  const {isAuth} = useContext(AuthContext);
+  const router = useRouter();
+
+  function addToCart() {
+    if (!isAuth) {
+      router.push('/login')
+    }
+  }
+
+  function buyNow() {
+    if (!isAuth) {
+      router.push('/login')
+    }
+  }
+
   return (
     <StyledProduct>
       <div className="image-div">
@@ -86,9 +104,9 @@ export default function ProductIcon({
           alt={productName}
         />
         <div className="image-div-buttons-div">
-          <button>Add to cart</button>
+          <button onClick={addToCart}>Add to cart</button>
 
-          <button>Buy now</button>
+          <button  onClick={buyNow}>Buy now</button>
         </div>
       </div>
       <div className="product-data-div">
