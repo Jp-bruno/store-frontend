@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useQuery } from "react-query";
 import CategoryBanner from "../components/CategoryBanner";
-import { Oval } from "react-loader-spinner";
+import LoadingIcon from "../components/LoadingIcon";
 
 const StyledMain = styled("main")`
   padding: 100px;
@@ -21,12 +21,7 @@ export default function Home() {
   return (
     <StyledMain>
       {isLoading ? (
-        <div style={{display: 'grid', placeItems: 'center'}}>
-          <Oval
-            color="white"
-            secondaryColor="#555555"
-          />
-        </div>
+          <LoadingIcon />
       ) : (
         data.map((el: any) => (
           <CategoryBanner

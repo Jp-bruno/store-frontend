@@ -1,10 +1,10 @@
 import { AuthContext } from "../context/AuthContext";
 import { MouseEvent, useContext } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { Oval } from "react-loader-spinner";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import useGetAllUsersData from "../hooks/useAllUsersData";
+import LoadingIcon from "../components/LoadingIcon";
 
 const StyledMain = styled.main`
   padding: 100px;
@@ -18,7 +18,7 @@ const StyledMain = styled.main`
     padding-bottom: 10px;
     border: solid 1px #555555;
     flex-grow: 2;
-    max-height: 60vh;
+    height: 60vh;
 
     & h2 {
       text-align: center;
@@ -43,7 +43,7 @@ const StyledMain = styled.main`
     border: solid 1px #555555;
     padding: 0 10px 10px 10px;
     width: auto;
-    max-height: 60vh;
+    height: 60vh;
     overflow-y: scroll;
     position: relative;
 
@@ -99,7 +99,7 @@ export default function Login() {
 
     setAuth(true);
 
-    router.push("/");
+    router.back();
 
     return;
   }
@@ -135,9 +135,7 @@ export default function Login() {
               </li>
             ))
           ) : (
-            <div style={{ display: "grid", placeItems: "center" }}>
-              <Oval />
-            </div>
+              <LoadingIcon />
           )}
         </ul>
       </div>
