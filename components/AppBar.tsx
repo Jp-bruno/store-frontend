@@ -13,20 +13,26 @@ const StyledAppBar = styled.div`
     display: flex;
     list-style-type: none;
     margin: 0;
-    padding: 20px 0;
-    height: 63px;
     width: 100%;
+    align-items: stretch;
+
+    & li {
+      display: flex;
+
+      & a,
+      & button {
+        display: flex;
+        align-items: center;
+        padding: 20px;
+        cursor: pointer;
+      }
+    }
 
     .login-li {
       margin-left: auto;
     }
 
     .nav-link {
-      padding: 20px;
-
-      &.login {
-        border: solid 1px green;
-      }
 
       &.is-current-page {
         background-color: #555;
