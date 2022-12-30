@@ -1,8 +1,7 @@
-import { useState } from "react";
 import styled from "styled-components";
 import ProductIcon from "../components/ProductIcon";
 
-const StyledMain = styled.div`
+const StyledMain = styled.main`
   display: flex;
   flex-wrap: wrap;
   padding: 100px;

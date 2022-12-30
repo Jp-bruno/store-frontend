@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 
 const StyledMain = styled('main')`
+  padding: 100px;
 
 `;
 
