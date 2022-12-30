@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const StyledAppBar = styled.div`
   background-color: #444;
@@ -39,6 +41,43 @@ const StyledAppBar = styled.div`
 
 export default function AppBar() {
   const { pathname } = useRouter();
+  const { isAuth, setAuth } = useContext(AuthContext);
+
+  if (isAuth) {
+    return (
+      <StyledAppBar>
+        <nav>
+          <ul className="nav-ul">
+            <li>
+              <Link
+                href="/"
+                className={`nav-link ${pathname === "/" ? "is-current-page" : ""}`}
+              >
+                Home
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                href="#"
+                className="nav-link"
+                onClick={(ev) => {
+                  ev.preventDefault();
+                  console.log("ok");
+                }}
+              >
+                Cart
+              </Link>
+            </li>
+
+            <li className="login-li">
+              <button onClick={() => setAuth(false)}>Logoff</button>
+            </li>
+          </ul>
+        </nav>
+      </StyledAppBar>
+    );
+  }
 
   return (
     <StyledAppBar>
@@ -47,29 +86,16 @@ export default function AppBar() {
           <li>
             <Link
               href="/"
-              className={`nav-link ${pathname === '/' ? 'is-current-page' : ''}`}
+              className={`nav-link ${pathname === "/" ? "is-current-page" : ""}`}
             >
               Home
             </Link>
           </li>
-          {/* 
-          <li>
-            <Link
-              href="#"
-              className="nav-link"
-              onClick={(ev) => {
-                ev.preventDefault();
-                console.log("ok");
-              }}
-            >
-              Cart
-            </Link>
-          </li> */}
 
           <li className="login-li">
             <Link
-              href="#"
-              className="nav-link"
+              href="/login"
+              className={`nav-link ${pathname === "/login" ? "is-current-page" : ""}`}
             >
               Login
             </Link>
