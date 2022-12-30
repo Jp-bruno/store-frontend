@@ -13,7 +13,6 @@ const StyledMain = styled.main`
 function EmptySpace() {
   return (
     <div
-      className="empty"
       style={{
         minWidth: "250px",
         maxWidth: "300px",
@@ -30,12 +29,8 @@ export default function Products({ data }: { data: any }) {
     dataArray.push(null);
   }
 
-  if (dataArray.length % 4 !== 0) {
-    return <div>Carregando...</div>;
-  }
-
   return (
-    <StyledMain className="eu mesmo">
+    <StyledMain>
       {dataArray.map((el: any) => {
         return el === null ? (
           <EmptySpace key={Math.random() * 2000} />
