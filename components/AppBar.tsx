@@ -33,7 +33,6 @@ const StyledAppBar = styled.div`
     }
 
     .nav-link {
-
       &.is-current-page {
         background-color: #555;
       }

@@ -1,10 +1,10 @@
-import styled from "styled-components";
 import { AuthContext } from "../context/AuthContext";
 import { MouseEvent, useContext } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { Oval } from "react-loader-spinner";
+import { useRouter } from "next/router";
+import styled from "styled-components";
 import useGetAllUsersData from "../hooks/useAllUsersData";
-import Router, { useRouter } from "next/router";
 
 const StyledMain = styled.main`
   padding: 100px;
@@ -18,6 +18,7 @@ const StyledMain = styled.main`
     padding-bottom: 10px;
     border: solid 1px #555555;
     flex-grow: 2;
+    max-height: 60vh;
 
     & h2 {
       text-align: center;
@@ -40,16 +41,30 @@ const StyledMain = styled.main`
 
   .users-list-div {
     border: solid 1px #555555;
-    padding: 10px;
+    padding: 0 10px 10px 10px;
     width: auto;
+    max-height: 60vh;
+    overflow-y: scroll;
+    position: relative;
+
+    & h3 {
+        margin-top: 0;
+        position: sticky;
+        top: 0;
+        background-color: black;
+        padding: 10px 0;
+        border-bottom: solid 1px #555555;
+    }
 
     & ul {
       display: flex;
       flex-direction: column;
       row-gap: 10px;
+      margin: 0;
 
       & li {
         padding: 4px;
+
         &:hover {
           background-color: #dddddd;
           color: black;
@@ -68,7 +83,7 @@ export default function Login() {
 
   function submitData(data: FieldValues) {
     const theUser = allUsers.find(
-      (user) => (user.email === data.email) && (user.password === data.password)
+      (user) => user.email === data.email && user.password === data.password
     );
 
     if (theUser === undefined) {
@@ -84,14 +99,16 @@ export default function Login() {
 
     setAuth(true);
 
-    router.push('/')
+    router.push("/");
 
     return;
   }
 
-  function autoFillForm(ev:MouseEvent<HTMLLIElement>) {
+  function autoFillForm(ev: MouseEvent<HTMLLIElement>) {
     const emailInput = document.querySelector('input[type="email"]') as HTMLInputElement;
-    const passwordInput = document.querySelector('input[type="password"]')  as HTMLInputElement;
+    const passwordInput = document.querySelector(
+      'input[type="password"]'
+    ) as HTMLInputElement;
 
     emailInput.value = ev.currentTarget.children[0].textContent as string;
     passwordInput.value = ev.currentTarget.children[2].textContent as string;
@@ -112,13 +129,13 @@ export default function Login() {
                 key={Math.random() * 2000}
                 onClick={autoFillForm}
               >
-                <span>{user.email}</span> 
-                <br /> 
+                <span>{user.email}</span>
+                <br />
                 <span>{user.password}</span>
               </li>
             ))
           ) : (
-            <div style={{display: 'grid', placeItems: 'center'}}>
+            <div style={{ display: "grid", placeItems: "center" }}>
               <Oval />
             </div>
           )}
