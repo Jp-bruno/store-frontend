@@ -76,7 +76,7 @@ export default function AppBar() {
             </li>
 
             <li className="login-li">
-              <button onClick={() => setAuth(false)}>Logoff</button>
+                <Link className="nav-link" href={'/'} onClick={() => setAuth(false)}>Logoff</Link>
             </li>
           </ul>
         </nav>
