@@ -1,15 +1,7 @@
 import styled from "styled-components";
 
-
-const StyledMain = styled('main')`
-  padding: 100px;
-
-`;
+const StyledDiv = styled.div``;
 
 export default function ProductPage() {
-    return (
-        <StyledMain>
-
-        </StyledMain>
-    )
+  return <StyledDiv>produto</StyledDiv>;
 }

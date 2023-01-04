@@ -24,7 +24,6 @@ const StyledAppBar = styled.div`
         display: flex;
         align-items: center;
         padding: 20px;
-        cursor: pointer;
       }
     }
 
@@ -64,12 +63,8 @@ export default function AppBar() {
 
             <li>
               <Link
-                href="#"
+                href="/cart"
                 className="nav-link"
-                onClick={(ev) => {
-                  ev.preventDefault();
-                  console.log("ok");
-                }}
               >
                 Cart
               </Link>

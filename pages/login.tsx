@@ -6,8 +6,7 @@ import styled from "styled-components";
 import useGetAllUsersData from "../hooks/useAllUsersData";
 import LoadingIcon from "../components/LoadingIcon";
 
-const StyledMain = styled.main`
-  padding: 100px;
+const StyledDiv = styled.div`
   display: flex;
 
   & form {
@@ -68,7 +67,6 @@ const StyledMain = styled.main`
         &:hover {
           background-color: #dddddd;
           color: black;
-          cursor: pointer;
         }
       }
     }
@@ -119,7 +117,7 @@ export default function Login() {
   }
 
   return (
-    <StyledMain>
+    <StyledDiv>
       <div className="users-list-div">
         <h3>Available fake users</h3>
         <ul>
@@ -158,6 +156,6 @@ export default function Login() {
 
         <button>Login</button>
       </form>
-    </StyledMain>
+    </StyledDiv>
   );
 }

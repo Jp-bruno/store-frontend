@@ -3,10 +3,6 @@ import { useQuery } from "react-query";
 import CategoryBanner from "../components/CategoryBanner";
 import LoadingIcon from "../components/LoadingIcon";
 
-const StyledMain = styled("main")`
-  padding: 100px;
-`;
-
 export default function Home() {
   async function getCategories() {
     let data = await fetch("https://fakestoreapi.com/products/categories").then((res) =>
@@ -19,7 +15,7 @@ export default function Home() {
     refetchOnWindowFocus: false,
   });
   return (
-    <StyledMain>
+    <div>
       {isLoading ? (
           <LoadingIcon />
       ) : (
@@ -30,6 +26,6 @@ export default function Home() {
           />
         ))
       )}
-    </StyledMain>
+    </div>
   );
 }

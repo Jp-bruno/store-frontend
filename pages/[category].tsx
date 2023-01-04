@@ -1,10 +1,9 @@
 import styled from "styled-components";
 import ProductIcon from "../components/ProductIcon";
 
-const StyledMain = styled.main`
+const StyledDiv = styled.div`
   display: flex;
   flex-wrap: wrap;
-  padding: 100px;
   justify-content: space-around;
   align-items: stretch;
   row-gap: 35px;
@@ -30,7 +29,7 @@ export default function Products({ data }: { data: any }) {
   }
 
   return (
-    <StyledMain>
+    <StyledDiv>
       {dataArray.map((el: any) => {
         return el === null ? (
           <EmptySpace key={Math.random() * 2000} />
@@ -39,11 +38,12 @@ export default function Products({ data }: { data: any }) {
             productImage={el.image}
             productName={el.title}
             productPrice={el.price}
+            productID={el.id}
             key={Math.random() * 2000}
           />
         );
       })}
-    </StyledMain>
+    </StyledDiv>
   );
 }
 

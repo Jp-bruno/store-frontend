@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useContext } from "react";
 import styled from "styled-components";
 import { AuthContext } from "../context/AuthContext";
+import { CartContext } from "../context/CartContext";
 
 const StyledProduct = styled.div`
   min-width: 250px;
@@ -42,7 +43,6 @@ const StyledProduct = styled.div`
 
       & button {
         width: 60%;
-        cursor: pointer;
       }
     }
   }
@@ -72,26 +72,33 @@ const StyledProduct = styled.div`
 type ProductIconProps = {
   productImage: string;
   productName: string;
-  productPrice: number;
+  productPrice: string;
+  productID: string
 };
 
 export default function ProductIcon({
   productImage,
   productName,
   productPrice,
+  productID
 }: ProductIconProps) {
-  const {isAuth} = useContext(AuthContext);
+  const { isAuth } = useContext(AuthContext);
   const router = useRouter();
+  const { addProductToCart } = useContext(CartContext);
 
   function addToCart() {
     if (!isAuth) {
-      router.push('/login')
+      router.push("/login");
     }
+
+    console.log(productID)
+
+    addProductToCart({title: productName, id: productID, price: productPrice})
   }
 
   function buyNow() {
     if (!isAuth) {
-      router.push('/login')
+      router.push("/login");
     }
   }
 
@@ -106,18 +113,23 @@ export default function ProductIcon({
         <div className="image-div-buttons-div">
           <button onClick={addToCart}>Add to cart</button>
 
-          <button  onClick={buyNow}>Buy now</button>
+          <button onClick={buyNow}>Buy now</button>
         </div>
       </div>
       <div className="product-data-div">
-        <h3 className="product-title" title={productName}>
-          <Link href={"#"}>{productName.length > 80 ? productName.slice(0, 80) + '...' : productName}</Link>
+        <h3
+          className="product-title"
+          title={productName}
+        >
+          <Link href={"#"}>
+            {productName.length > 80 ? productName.slice(0, 80) + "..." : productName}
+          </Link>
         </h3>
         <Link
           className="product-price"
           href={"#"}
         >
-          R$ {productPrice.toFixed(2).toString().replace(".", ",")}
+          $ {Number(productPrice).toFixed(2).toString().replace(".", ",")}
         </Link>
       </div>
     </StyledProduct>
