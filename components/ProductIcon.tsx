@@ -5,6 +5,9 @@ import { useContext } from "react";
 import styled from "styled-components";
 import { AuthContext } from "../context/AuthContext";
 import { CartContext } from "../context/CartContext";
+import dynamic from "next/dynamic";
+
+const ImageNoSSR = dynamic(() => import("next/image"), { ssr: false });
 
 const StyledProduct = styled.div`
   min-width: 250px;
@@ -72,15 +75,15 @@ const StyledProduct = styled.div`
 type ProductIconProps = {
   productImage: string;
   productName: string;
-  productPrice: string;
-  productID: string
+  productPrice: number;
+  productID: number;
 };
 
 export default function ProductIcon({
   productImage,
   productName,
   productPrice,
-  productID
+  productID,
 }: ProductIconProps) {
   const { isAuth } = useContext(AuthContext);
   const router = useRouter();
@@ -91,9 +94,12 @@ export default function ProductIcon({
       router.push("/login");
     }
 
-    console.log(productID)
-
-    addProductToCart({title: productName, id: productID, price: productPrice})
+    addProductToCart({
+      title: productName,
+      id: productID,
+      price: productPrice,
+      quantity: 1,
+    });
   }
 
   function buyNow() {
@@ -105,9 +111,10 @@ export default function ProductIcon({
   return (
     <StyledProduct>
       <div className="image-div">
-        <Image
+        <ImageNoSSR
           src={productImage}
           fill
+          sizes="5vw"
           alt={productName}
         />
         <div className="image-div-buttons-div">
@@ -121,7 +128,7 @@ export default function ProductIcon({
           className="product-title"
           title={productName}
         >
-          <Link href={"#"}>
+          <Link href={`/products/product/${productID}`}>
             {productName.length > 80 ? productName.slice(0, 80) + "..." : productName}
           </Link>
         </h3>

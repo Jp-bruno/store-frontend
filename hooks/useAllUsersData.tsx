@@ -35,8 +35,5 @@ export default function useGetAllUsersData(): userData[] {
     staleTime: Infinity
   });
 
-
-  console.log(data)
-
   return data;
 }

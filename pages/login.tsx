@@ -47,12 +47,12 @@ const StyledDiv = styled.div`
     position: relative;
 
     & h3 {
-        margin-top: 0;
-        position: sticky;
-        top: 0;
-        background-color: black;
-        padding: 10px 0;
-        border-bottom: solid 1px #555555;
+      margin-top: 0;
+      position: sticky;
+      top: 0;
+      background-color: black;
+      padding: 10px 0;
+      border-bottom: solid 1px #555555;
     }
 
     & ul {
@@ -74,32 +74,13 @@ const StyledDiv = styled.div`
 `;
 
 export default function Login() {
-  const { setAuth, setUserData } = useContext(AuthContext);
+  const { auth } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
   const allUsers = useGetAllUsersData();
   const router = useRouter();
 
-  function submitData(data: FieldValues) {
-    const theUser = allUsers.find(
-      (user) => user.email === data.email && user.password === data.password
-    );
-
-    if (theUser === undefined) {
-      alert("Invalid data");
-
-      return;
-    }
-
-    setUserData({
-      email: theUser?.email || "",
-      name: theUser?.name.firstname + " " + theUser?.name.lastname,
-    });
-
-    setAuth(true);
-
-    router.back();
-
-    return;
+  function submitData({ email, password }: { email: string; password: string }) {
+    auth({email, password});
   }
 
   function autoFillForm(ev: MouseEvent<HTMLLIElement>) {
@@ -133,12 +114,12 @@ export default function Login() {
               </li>
             ))
           ) : (
-              <LoadingIcon />
+            <LoadingIcon />
           )}
         </ul>
       </div>
 
-      <form onSubmit={handleSubmit((data) => submitData(data))}>
+      <form onSubmit={handleSubmit((data:FieldValues) => submitData({email: data.email, password: data.password}))}>
         <h2>Welcome</h2>
         <input
           type="email"

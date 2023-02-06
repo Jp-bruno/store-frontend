@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ProductIcon from "../components/ProductIcon";
+import ProductIcon from "../../../components/ProductIcon";
 
 const StyledDiv = styled.div`
   display: flex;

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import styled from "styled-components";
+import QuantityInput from "../components/CartQuantityInput";
 import { CartContext } from "../context/CartContext";
 
 const StyledMain = styled.main`
@@ -53,16 +54,15 @@ const StyledMain = styled.main`
 `;
 
 export default function Cart() {
-  const { products, removeProductFromCart } = useContext(CartContext);
+  const { products, removeProductFromCart, setQuantity } = useContext(CartContext);
 
   const totalPrice =
     products === null
       ? false
-      : Number(products?.map((el) => el.price).reduce((prev, curr) => prev + curr))
+      : Number(products?.map((el) => el.priceTimesQuantity).reduce((prev, curr) => prev + curr))
           .toFixed(2)
           .replace(".", ",");
 
-  console.log(products);
   return (
     <StyledMain>
       <table>
@@ -75,7 +75,7 @@ export default function Cart() {
         </thead>
 
         <tbody>
-          {products?.map(({ id, title, price }, index) => {
+          {products?.map(({ id, title, price, quantity }, index) => {
             return (
               <tr key={Math.random() * 2000}>
                 <td className="centered-content">{index + 1}</td>
@@ -83,7 +83,9 @@ export default function Cart() {
                 <td>{title}</td>
 
                 <td className="centered-content">
-                  {Number(price).toFixed(2).replace(".", ",")}
+                  {`${price.toFixed(2).replace(".", ",")}R$ x `}
+                  <QuantityInput quantity={quantity} id={id}/>
+                  {`Total = ${Number(products[index].priceTimesQuantity).toFixed(2).replace(".", ",")}`}
                 </td>
 
                 <td className="centered-content">
@@ -105,7 +107,12 @@ export default function Cart() {
         </tbody>
       </table>
 
-      <button className="finish-purchase" disabled={totalPrice === false ? true : false}>Finish purchase</button>
+      <button
+        className="finish-purchase"
+        disabled={totalPrice === false ? true : false}
+      >
+        Finish purchase
+      </button>
     </StyledMain>
   );
 }

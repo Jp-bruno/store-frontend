@@ -92,6 +92,16 @@ export default function AppBar() {
             </Link>
           </li>
 
+          
+          <li>
+              <Link
+                href="/cart"
+                className="nav-link"
+              >
+                Cart
+              </Link>
+            </li>
+
           <li className="login-li">
             <Link
               href="/login"
